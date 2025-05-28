@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Layout for BookingEventActivity
+    • Spinner shows event names
+    • User enters ticket count
+    • Total price text auto-updates
+-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundGray">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <!-- Event list -->
+        <Spinner
+            android:id="@+id/eventSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/eventLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            tools:text="Location: Muscat"
+            android:textColor="#F5A623"
+            />
+
+        <TextView
+            android:id="@+id/eventDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            tools:text="Description: Annual tech show"/>
+
+        <!-- Ticket quantity -->
+        <EditText
+            android:id="@+id/ticketCount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Number of Tickets"
+            android:inputType="number"
+            android:layout_marginTop="16dp" />
+
+        <!-- Auto-calculated total -->
+        <TextView
+            android:id="@+id/totalPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total: 0.000 OMR"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/accentOrange"
+            android:textSize="16sp" />
+
+        <!-- Book button -->
+        <Button
+            android:id="@+id/bookBtn"
+            android:layout_width="365dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/primaryBlue"
+            android:textColor="@color/accentOrange"
+            android:text="BOOK NOW"
+            android:textStyle="bold"/>
+
+        <!-- Back button -->
+        <Button
+            android:id="@+id/backBtn"
+            android:layout_width="365dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/primaryBlue"
+            android:textColor="@color/accentOrange"
+            android:text="BACK TO MAIN MENU"
+            android:textStyle="bold"/>
+    </LinearLayout>
+</ScrollView>

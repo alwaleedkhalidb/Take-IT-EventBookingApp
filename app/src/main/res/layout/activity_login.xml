@@ -1,0 +1,44 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/backgroundGray"
+    >
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        android:textColor="#F5A623"
+        android:inputType="textEmailAddress"/>
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:textColor="#F5A623"
+        android:layout_marginTop="16dp"/>
+
+    <Button
+        android:id="@+id/loginBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/primaryBlue"
+        android:textColor="@color/accentOrange"
+        android:text="LOGIN"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/registerLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No Account Yet? Join TakeIT NOW"
+        android:textColor="#F5A623"
+        android:layout_marginTop="16dp"/>
+</LinearLayout>

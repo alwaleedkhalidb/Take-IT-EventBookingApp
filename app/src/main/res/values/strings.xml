@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">TakeIT</string>
+    <string name="select_event_prompt">Select Event</string>
+    <string-array name="role_options">
+        <item>user</item>
+        <item>admin</item>
+    </string-array>
+
+</resources>

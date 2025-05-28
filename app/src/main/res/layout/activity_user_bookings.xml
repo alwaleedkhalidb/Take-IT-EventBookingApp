@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundGray">
+
+    <!-- Back to previous screen -->
+    <Button
+        android:id="@+id/backBtn"
+        android:layout_width="363dp"
+        android:layout_height="wrap_content"
+        android:text="BACK TO MAIN MENU"
+        android:textStyle="bold"
+        android:backgroundTint="@color/primaryBlue"
+        android:textColor="@color/accentOrange"/>
+
+    <!-- Space between button and list -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp"/>
+
+    <!-- User’s booking history -->
+    <ListView
+        android:id="@+id/bookingList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>
