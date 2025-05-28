@@ -11,26 +11,23 @@ import com.google.firebase.database.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *  • Fetches /Events from Realtime-DB (using BASE_URL in FirebaseHelper)
- *  • Lets user choose an event, enter ticket count and see the total
- *  • Writes a /Bookings record on “Book Now”
- *  • NEW: shows location & description of the selected event
- */
+// this takes events from the real time firebase database
+    // it makes user choose event, then enter a ticket amount to be calculated displayed
+
 public class BookingEventActivity extends AppCompatActivity {
 
     /* ---------- UI ---------- */
     private Spinner  eventSpinner;
     private EditText ticketCount;
     private TextView totalPrice;
-    private TextView eventLocTv, eventDescTv;   // NEW: extra detail views
+    private TextView eventLocTv, eventDescTv;
     private Button   bookBtn, backBtn;
 
-    /* ---------- Firebase ---------- */
+    // this is firebase setup
     private FirebaseAuth      mAuth;
     private DatabaseReference eventDb, bookingDb;
 
-    /* ---------- Helpers ---------- */
+    // helpers to allow code to work
     private final List<Event> eventList = new ArrayList<>();
     private double  selectedEventPrice = 0.0;
     private String  selectedEventId    = "";
@@ -39,14 +36,14 @@ public class BookingEventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_booking_event);
 
-        /* Firebase references using the fixed BASE_URL */
+        //fire base fix using references with ne base_url setup
         mAuth     = FirebaseAuth.getInstance();
         eventDb   = FirebaseDatabase.getInstance(FirebaseHelper.BASE_URL)
                 .getReference("Events");
         bookingDb = FirebaseDatabase.getInstance(FirebaseHelper.BASE_URL)
                 .getReference("Bookings");
 
-        /* Link widgets */
+        // adding the different widgets
         eventSpinner  = findViewById(R.id.eventSpinner);
         ticketCount   = findViewById(R.id.ticketCount);
         totalPrice    = findViewById(R.id.totalPrice);
@@ -65,7 +62,7 @@ public class BookingEventActivity extends AppCompatActivity {
         backBtn.setOnClickListener(v -> onBackPressed());
     }
 
-    /** Pull events, push names into Spinner, update detail fields on selection */
+    // takes event from database to be placed in spinners, and changes description and location when selected
     private void loadEventsIntoSpinner() {
         eventDb.addValueEventListener(new ValueEventListener() {
             @Override public void onDataChange(DataSnapshot snap) {
@@ -91,7 +88,7 @@ public class BookingEventActivity extends AppCompatActivity {
                         selectedEventId    = sel.id;
                         selectedEventPrice = sel.price;
 
-                        /* NEW: show additional event info */
+                        // this is to show extra event information like location and description
                         eventLocTv.setText("Location: " + sel.location);
                         eventDescTv.setText("Description: " + sel.description);
 
@@ -108,7 +105,7 @@ public class BookingEventActivity extends AppCompatActivity {
         });
     }
 
-    /** Re-calculate the total OMR whenever qty or event changes */
+    //  to calculate the total according to ticket amount and quantity
     private void calculateTotal() {
         String c = ticketCount.getText().toString();
         if (!c.isEmpty()) {
@@ -118,7 +115,7 @@ public class BookingEventActivity extends AppCompatActivity {
         }
     }
 
-    /** Push a Booking node under /Bookings and show success/fail toast */
+    // this to show alert of event addition to be successfull to be added to the realtime firebase database
     private void makeBooking() {
         String qtyStr = ticketCount.getText().toString();
         if (qtyStr.isEmpty()) {
@@ -146,7 +143,7 @@ public class BookingEventActivity extends AppCompatActivity {
         });
     }
 
-    /* ---------- POJO classes ---------- */
+    // different classes for events and bookings to be saved for database
     public static class Event {
         public String id, name, location, description;
         public double price;

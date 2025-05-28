@@ -16,49 +16,84 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-
+// activity to login for event organizers and users
 public class LoginActivity extends AppCompatActivity {
 
-    EditText email, password; Button loginBtn; TextView registerLink;
+    // declaration of ui things and firebase
+    EditText email, password;
+    Button loginBtn;
+    TextView registerLink;
     FirebaseAuth mAuth;
 
-    @Override protected void onCreate(Bundle s) {
+    @Override
+    protected void onCreate(Bundle s) {
         super.onCreate(s);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_login);  // this is to connect the java with its xml design file
 
+        // to start firebase authentication
         mAuth = FirebaseAuth.getInstance();
-        email = findViewById(R.id.email); password = findViewById(R.id.password);
-        loginBtn = findViewById(R.id.loginBtn); registerLink = findViewById(R.id.registerLink);
 
+        // connect the ui to the xml elemenets
+        email = findViewById(R.id.email);
+        password = findViewById(R.id.password);
+        loginBtn = findViewById(R.id.loginBtn);
+        registerLink = findViewById(R.id.registerLink);
+
+        // login button click action
         loginBtn.setOnClickListener(v -> {
+            // try to sign in using the provided email and password
             mAuth.signInWithEmailAndPassword(
-                            email.getText().toString(), password.getText().toString())
-                    .addOnCompleteListener(t -> {
-                        if (!t.isSuccessful()) {Toast.makeText(this,"Login failed",Toast.LENGTH_SHORT).show();return;}
-                        String uid = mAuth.getCurrentUser().getUid();
-                        DatabaseReference userRef = FirebaseDatabase.getInstance(FirebaseHelper.BASE_URL)
-                                .getReference("Users").child(uid);
+                    email.getText().toString(),
+                    password.getText().toString()
+            ).addOnCompleteListener(t -> {
+                if (!t.isSuccessful()) {
+                    //  login fails then show error message
+                    Toast.makeText(this, "Login failed, Try Again", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-                        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override public void onDataChange(DataSnapshot snap) {
-                                String role = snap.child("role").getValue(String.class);
-                                if ("Event Organizer".equals(role)) {
-                                    startActivity(new Intent(LoginActivity.this,AdminDashboardActivity.class));
-                                } else if ("TakeIT User".equals(role)) {
-                                    startActivity(new Intent(LoginActivity.this,UserHomeActivity.class));
-                                } else {
-                                    Toast.makeText(LoginActivity.this,"Role not set",Toast.LENGTH_SHORT).show();
-                                }
-                                finish();
-                            }
-                            @Override public void onCancelled(DatabaseError e) {
-                                Toast.makeText(LoginActivity.this,"DB error "+e.getMessage(),Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    });
+                // log in works, gets the uid of user that logged in
+                String uid = mAuth.getCurrentUser().getUid();
+
+                // references thethe user data in real time firebase database
+                DatabaseReference userRef = FirebaseDatabase.getInstance(FirebaseHelper.BASE_URL)
+                        .getReference("Users").child(uid);
+
+                // read user information including role
+                userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snap) {
+                        //  the role stored in the database for  user
+                        String role = snap.child("role").getValue(String.class);
+
+                        // takes to different pages based on role type
+                        if ("Event Organizer".equals(role)) {
+                            //  user is  organizer, go to to the admin page/dashboard
+                            startActivity(new Intent(LoginActivity.this, AdminDashboardActivity.class));
+                        } else if ("TakeIT User".equals(role)) {
+                            // user is user , go to to the user page/dashboard
+                            startActivity(new Intent(LoginActivity.this, UserHomeActivity.class));
+                        } else {
+                            // no role / missing
+                            Toast.makeText(LoginActivity.this, "Role not set", Toast.LENGTH_SHORT).show();
+                        }
+
+                        // this is to stop user from going to login screen
+                        finish();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError e) {
+                        // this is to stop firebase problems and errors
+                        Toast.makeText(LoginActivity.this, "DB error " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            });
         });
 
+        // this is to take to register page once clicked
         registerLink.setOnClickListener(v ->
-                startActivity(new Intent(this, RegisterActivity.class)));
+                startActivity(new Intent(this, RegisterActivity.class))
+        );
     }
 }

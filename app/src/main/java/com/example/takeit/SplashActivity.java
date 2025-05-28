@@ -6,7 +6,7 @@ import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SplashActivity extends AppCompatActivity {
-    // Shows splash screen for 3 seconds then moves to login
+    // show splash screen for 3 seconds then moves to login
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
