@@ -23,7 +23,7 @@ public class UserHomeActivity extends AppCompatActivity {
                 startActivity(new Intent(this, BookingEventActivity.class))
         );
 
-        // 🔹when view booking is clicked, it takes them to usersbookingactivity.java
+        // when view booking is clicked, it takes them to usersbookingactivity.java
         view.setOnClickListener(v ->
                 startActivity(new Intent(this, UserBookingsActivity.class))
         );

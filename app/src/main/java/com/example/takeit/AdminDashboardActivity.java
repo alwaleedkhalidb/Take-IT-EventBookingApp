@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-// this class is for users to create new events with info like name, location and price
+// this activity is for users to create new events with info like name, location and price
 public class AdminDashboardActivity extends AppCompatActivity {
 
     // declaration of ui and for database

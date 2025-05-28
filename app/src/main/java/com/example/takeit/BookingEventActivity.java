@@ -16,7 +16,6 @@ import java.util.List;
 
 public class BookingEventActivity extends AppCompatActivity {
 
-    /* ---------- UI ---------- */
     private Spinner  eventSpinner;
     private EditText ticketCount;
     private TextView totalPrice;

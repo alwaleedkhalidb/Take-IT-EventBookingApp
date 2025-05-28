@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:background="@color/backgroundGray">
 
-    <!-- Back to previous screen -->
     <Button
         android:id="@+id/backBtn"
         android:layout_width="363dp"
@@ -16,12 +15,10 @@
         android:backgroundTint="@color/primaryBlue"
         android:textColor="@color/accentOrange"/>
 
-    <!-- Space between button and list -->
     <View
         android:layout_width="match_parent"
         android:layout_height="8dp"/>
 
-    <!-- User’s booking history -->
     <ListView
         android:id="@+id/bookingList"
         android:layout_width="match_parent"
